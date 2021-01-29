@@ -23,7 +23,8 @@ export default function usePagination(entries) {
   });
 
   const entriesToShow = entries.slice(
-    currentEntry, currentEntry + entriesPerPage
+    currentEntry,
+    currentEntry + entriesPerPage
   );
 
   const changePage = (change = 1) => {

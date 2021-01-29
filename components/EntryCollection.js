@@ -15,8 +15,9 @@ export default function EntryCollection({ heading, entries }) {
       ))}
       {entries.length > entriesPerPage && (
         <>
-          <button className={buttonStyle}
-                  onClick={() => changePage(-1)}>Prior</button>
+          <button className={buttonStyle} onClick={() => changePage(-1)}>
+            Prior
+          </button>
           <button onClick={() => changePage()}>Next</button>
         </>
       )}
