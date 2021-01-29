@@ -37,5 +37,11 @@ export default function usePagination(entries) {
     }
   };
 
-  return { changePage, entriesPerPage, entriesToShow };
+  return {
+    changePage,
+    entriesPerPage,
+    entriesToShow,
+    isFirstPage: currentEntry === 0,
+    isLastPage: totalPages === Number(router.query.page),
+  };
 }
