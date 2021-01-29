@@ -2,10 +2,10 @@ import { getEntriesByTag, getTags } from "../../graphql/queries";
 import { useRouter } from "next/router";
 import EntryCollection from "../../components/EntryCollection";
 import graphQLClient from "../../graphql/client";
+import marked from "marked";
 import PageLayout from "../../components/PageLayout";
 
-export default function Tag({ data }) {
-  const entries = data.contentTypeEntryCollection.items;
+export default function Tag({ entries }) {
   const router = useRouter();
 
   return (
@@ -20,7 +20,16 @@ export default function Tag({ data }) {
 
 export async function getStaticProps({ params: { name } }) {
   const data = await graphQLClient.request(getEntriesByTag, { tag: name });
-  return { props: { data: data.tagCollection.items[0].linkedFrom } };
+  const {
+    contentTypeEntryCollection: { items: entriesOriginal },
+  } = data.tagCollection.items[0].linkedFrom;
+
+  const entries = entriesOriginal.map((entry) => ({
+    ...entry,
+    body: marked(entry.body),
+  }));
+
+  return { props: { entries } };
 }
 
 export async function getStaticPaths() {
