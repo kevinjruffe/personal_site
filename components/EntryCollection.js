@@ -2,8 +2,15 @@ import Article from "../components/Article";
 import usePagination from "../hooks/usePagination";
 
 export default function EntryCollection({ heading, entries }) {
-  const { changePage, entriesPerPage, entriesToShow } = usePagination(entries);
-  const buttonStyle = "border border-solid border-green";
+  const {
+    changePage,
+    entriesPerPage,
+    entriesToShow,
+    isFirstPage,
+    isLastPage,
+  } = usePagination(entries);
+  const buttonStyle =
+    "text-white text-2xl px-8 py-2 mb-4 mx-16 rounded-md border border-solid border-black bg-green-light transition-opacity hover:opacity-75";
 
   return (
     <>
@@ -14,12 +21,20 @@ export default function EntryCollection({ heading, entries }) {
         <Article borderTop={true} entry={entry} key={entry.slug} />
       ))}
       {entries.length > entriesPerPage && (
-        <>
-          <button className={buttonStyle} onClick={() => changePage(-1)}>
-            Prior
+        <div className="flex justify-between">
+          <button
+            className={buttonStyle + (isFirstPage ? " invisible" : "")}
+            onClick={() => changePage(-1)}
+          >
+            ◀
           </button>
-          <button onClick={() => changePage()}>Next</button>
-        </>
+          <button
+            className={buttonStyle + (isLastPage ? " invisible" : "")}
+            onClick={() => changePage()}
+          >
+            ▶
+          </button>
+        </div>
       )}
     </>
   );
