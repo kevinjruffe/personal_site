@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import H1 from "./H1";
 import Link from "next/link";
-import marked from "marked";
 
 export default function Article({ borderTop, entry }) {
   const topBorder = borderTop
@@ -41,7 +40,7 @@ export default function Article({ borderTop, entry }) {
       </div>
       <div
         className="bodyP"
-        dangerouslySetInnerHTML={{ __html: marked(entry.body) }}
+        dangerouslySetInnerHTML={{ __html: entry.body }}
       ></div>
       {entry.tagsCollection?.items.length > 0 && (
         <ul className="inline-block">
