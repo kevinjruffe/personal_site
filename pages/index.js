@@ -1,7 +1,7 @@
 import { getEntries } from "../graphql/queries";
 import EntryCollection from "../components/EntryCollection";
 import graphQLClient from "../graphql/client";
-import marked from "marked";
+import markdownToHtml from "../lib/markdownToHtml";
 import PageLayout from "../components/PageLayout";
 
 export default function Home({ entries }) {
@@ -13,15 +13,11 @@ export default function Home({ entries }) {
 }
 
 export async function getStaticProps() {
-  const {
-    contentTypeEntryCollection: { items: entriesOriginal },
-  } = await graphQLClient.request(getEntries);
+  const entriesOriginal = (await graphQLClient.request(getEntries))
+    .contentTypeEntryCollection.items;
 
   // Transform Markdown to HTML
-  const entries = entriesOriginal.map((entry) => ({
-    ...entry,
-    body: marked(entry.body),
-  }));
+  const entries = await Promise.all(entriesOriginal.map(markdownToHtml));
 
   return {
     props: { entries },

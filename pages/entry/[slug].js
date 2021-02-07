@@ -1,7 +1,7 @@
 import { getEntryBySlug, getSlugs } from "../../graphql/queries";
 import Article from "../../components/Article";
 import graphQLClient from "../../graphql/client";
-import marked from "marked";
+import markdownToHtml from "../../lib/markdownToHtml";
 import PageLayout from "../../components/PageLayout";
 
 export default function Entry({ entry }) {
@@ -13,19 +13,18 @@ export default function Entry({ entry }) {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const {
-    contentTypeEntryCollection: { items: entries },
-  } = await graphQLClient.request(getEntryBySlug, { slug });
+  const entryOriginal = (await graphQLClient.request(getEntryBySlug, { slug }))
+    .contentTypeEntryCollection.items[0];
 
-  const entry = { ...entries[0], body: marked(entries[0].body) };
+  // Transform Markdown to HTML
+  const entry = await markdownToHtml(entryOriginal);
 
   return { props: { entry } };
 }
 
 export async function getStaticPaths() {
-  const {
-    contentTypeEntryCollection: { items: slugs },
-  } = await graphQLClient.request(getSlugs);
+  const slugs = (await graphQLClient.request(getSlugs))
+    .contentTypeEntryCollection.items;
 
   return {
     paths: slugs.map((entry) => ({ params: { slug: entry.slug } })),

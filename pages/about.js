@@ -1,4 +1,5 @@
 import H1 from "../components/H1";
+import Image from "next/image";
 import Link from "next/link";
 import PageLayout from "../components/PageLayout";
 
@@ -9,9 +10,11 @@ export default function About() {
     <PageLayout titleOverride="About">
       <div className="max-w-prose w-10/12 m-auto">
         <div className="w-1/3 mx-auto mt-8">
-          <img
+          <Image
             src="/me.png"
             alt="Me"
+            width={178}
+            height={178}
             className="border-solid border-2 border-green-light rounded-full"
           />
         </div>

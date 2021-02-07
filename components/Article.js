@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import H1 from "./H1";
+import Image from "next/image";
 import Link from "next/link";
+import parse from "html-react-parser";
 
 export default function Article({ borderTop, entry }) {
   const topBorder = borderTop
@@ -38,10 +40,7 @@ export default function Article({ borderTop, entry }) {
           </span>
         )}
       </div>
-      <div
-        className="bodyP"
-        dangerouslySetInnerHTML={{ __html: entry.body }}
-      ></div>
+      {parse(entry.body, { replace: replaceImgWithNextImage })}
       {entry.tagsCollection?.items.length > 0 && (
         <ul className="inline-block">
           {entry.tagsCollection.items.map((tag) => (
@@ -55,4 +54,28 @@ export default function Article({ borderTop, entry }) {
       )}
     </article>
   );
+}
+
+/**
+ * Custom replace function for `parse`.
+ * This replaces the img tag with NextJS's Image component.
+ * NOTE: To be valid HTML5 we need to replace the wrapping `p` tag from the CMS
+ *       with `div` tags, because NextJS's Image component will add `div` tags
+ *       around the `img` tag. A `div` tag cannto be a child of a `p` tag...
+ */
+function replaceImgWithNextImage(domNode) {
+  if (domNode.name !== "p") return;
+  const childImage = domNode.children.find((child) => child.name === "img");
+  if (childImage) {
+    return (
+      <div>
+        <Image
+          src={childImage.attribs.src}
+          alt={childImage.attribs.alt}
+          width={childImage.attribs.width}
+          height={childImage.attribs.height}
+        />
+      </div>
+    );
+  }
 }
