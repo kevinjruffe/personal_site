@@ -1,6 +1,17 @@
 import { gql } from "graphql-request";
 import { itemsDataFragment, tagsDataFragment } from "./fragments";
 
+export const getAssetsDimensionsByUrls = gql`
+  query getAssetsDimensionsByUrls($urls: [String!]!) {
+    assetCollection(where: { url_in: $urls }) {
+      items {
+        height
+        width
+      }
+    }
+  }
+`;
+
 export const getEntries = gql`
   {
     contentTypeEntryCollection {

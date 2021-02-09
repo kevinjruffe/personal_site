@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
@@ -8,10 +9,12 @@ export default function Header() {
       <div className="md:w-32">
         <Link href="/">
           <a className="inline-block">
-            <img
+            <Image
               className="w-1/2 md:w-auto sm:w-24"
               src="/logo-header.png"
               alt="Logo (tent)"
+              width={175}
+              height={103}
             />
           </a>
         </Link>

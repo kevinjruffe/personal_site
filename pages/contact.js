@@ -1,4 +1,5 @@
 import H1 from "../components/H1";
+import Image from "next/image";
 import PageLayout from "../components/PageLayout";
 
 export default function About() {
@@ -13,16 +14,24 @@ export default function About() {
           <ul className="flex items-center justify-center">
             <li className={liClass}>
               <a href="https://www.instagram.com/kevinjruffe/">
-                <img
+                <Image
                   src="/instagram.png"
                   alt="Instagram"
+                  width={128}
+                  height={128}
                   className={imgClass}
                 />
               </a>
             </li>
             <li className={liClass}>
               <a href="https://github.com/kevinjruffe">
-                <img src="/github.png" alt="GitHub" className={imgClass} />
+                <Image
+                  src="/github.png"
+                  alt="GitHub"
+                  width={128}
+                  height={125}
+                  className={imgClass}
+                />
               </a>
             </li>
           </ul>
