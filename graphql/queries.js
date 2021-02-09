@@ -14,7 +14,7 @@ export const getAssetsDimensionsByUrls = gql`
 
 export const getEntries = gql`
   {
-    contentTypeEntryCollection {
+    contentTypeEntryCollection(order: [date_DESC]) {
       items {
         ...itemsData
         ...tagsCollection
