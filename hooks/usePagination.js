@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
  */
 export default function usePagination(entries) {
   const [currentEntry, setCurrentEntry] = useState(0);
-  const entriesPerPage = 4;
+  const entriesPerPage = 2;
   const router = useRouter();
   const totalPages = Math.ceil(entries.length / entriesPerPage);
 
