@@ -13,8 +13,8 @@ export default function About() {
           <Image
             src="/me.png"
             alt="Me"
-            width={178}
-            height={178}
+            width={182}
+            height={182}
             className="border-solid border-2 border-green-light rounded-full"
           />
         </div>
