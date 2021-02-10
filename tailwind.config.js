@@ -35,7 +35,8 @@ module.exports = {
         h1: { fontSize: theme("fontSize.3xl") },
         h2: { fontSize: theme("fontSize.2xl") },
         h3: { fontSize: theme("fontSize.xl") },
-        p: { padding: "0.50rem 0" },
+        p: { padding: "0.5rem 0" },
+        ul: { padding: "0.5rem 0" },
       });
     }),
   ],

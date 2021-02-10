@@ -10,7 +10,7 @@ export default function EntryCollection({ heading, entries }) {
     isLastPage,
   } = usePagination(entries);
   const buttonStyle =
-    "text-white text-2xl px-8 py-2 mb-4 mx-16 rounded-md border border-solid border-black bg-green-light transition-opacity hover:opacity-75";
+    "text-white text-2xl px-8 py-2 mb-4 mx-16 rounded-md border border-solid border-black bg-green-light transition-opacity hover:opacity-75 sm:mx-0";
 
   return (
     <>
