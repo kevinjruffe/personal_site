@@ -5,7 +5,6 @@ export default function PageLayout(props) {
   return (
     <>
       <Head>
-        <title>KevinRuffe.com | {props.titleOverride ?? "Blog"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div

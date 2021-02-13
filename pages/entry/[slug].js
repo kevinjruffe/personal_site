@@ -1,4 +1,5 @@
 import { getEntryBySlug, getSlugs } from "../../graphql/queries";
+import { NextSeo } from "next-seo";
 import Article from "../../components/Article";
 import graphQLClient from "../../graphql/client";
 import markdownToHtml from "../../lib/markdownToHtml";
@@ -6,9 +7,27 @@ import PageLayout from "../../components/PageLayout";
 
 export default function Entry({ entry }) {
   return (
-    <PageLayout>
-      <Article entry={entry} />
-    </PageLayout>
+    <>
+      <NextSeo
+        description={getSeoDescription(entry.tagsCollection.items)}
+        openGraph={{
+          url: `https://kevinruffe.com/entry/${entry.slug}`,
+          type: "article",
+          article: {
+            publishedTime: `${entry.date}`,
+            authors: ["https://kevinruffe.com/about"],
+            tags: [
+              `${entry.tagsCollection.items
+                .map((tagObj) => tagObj.name)
+                .join(",")}`,
+            ],
+          },
+        }}
+      />
+      <PageLayout>
+        <Article entry={entry} />
+      </PageLayout>
+    </>
   );
 }
 
@@ -30,4 +49,10 @@ export async function getStaticPaths() {
     paths: slugs.map((entry) => ({ params: { slug: entry.slug } })),
     fallback: false,
   };
+}
+
+function getSeoDescription(tags) {
+  return tags.length
+    ? `A blog post covering: ${tags.map((tagObj) => tagObj.name).join(", ")}`
+    : "A blog post by Kevin Ruffe.";
 }
