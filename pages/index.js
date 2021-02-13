@@ -1,4 +1,5 @@
 import { getEntries } from "../graphql/queries";
+import { NextSeo } from "next-seo";
 import EntryCollection from "../components/EntryCollection";
 import graphQLClient from "../graphql/client";
 import markdownToHtml from "../lib/markdownToHtml";
@@ -6,9 +7,12 @@ import PageLayout from "../components/PageLayout";
 
 export default function Home({ entries }) {
   return (
-    <PageLayout>
-      <EntryCollection heading="Recent Posts" entries={entries} />
-    </PageLayout>
+    <>
+      <NextSeo description="Kevin's personal blog." />
+      <PageLayout>
+        <EntryCollection heading="Recent Posts" entries={entries} />
+      </PageLayout>
+    </>
   );
 }
 

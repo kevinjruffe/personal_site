@@ -1,4 +1,5 @@
 import { getEntriesByTag, getTags } from "../../graphql/queries";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import EntryCollection from "../../components/EntryCollection";
 import graphQLClient from "../../graphql/client";
@@ -9,12 +10,15 @@ export default function Tag({ entries }) {
   const router = useRouter();
 
   return (
-    <PageLayout>
-      <EntryCollection
-        heading={`Posts Tagged "${router.query.name}"`}
-        entries={entries}
-      />
-    </PageLayout>
+    <>
+      <NextSeo description={`Blog posts tagged "${router.query.name}"`} />
+      <PageLayout>
+        <EntryCollection
+          heading={`Posts Tagged "${router.query.name}"`}
+          entries={entries}
+        />
+      </PageLayout>
+    </>
   );
 }
 
