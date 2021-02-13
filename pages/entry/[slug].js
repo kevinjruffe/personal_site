@@ -11,6 +11,7 @@ export default function Entry({ entry }) {
       <NextSeo
         description={getSeoDescription(entry.tagsCollection.items)}
         openGraph={{
+          title: `${entry.title}`,
           url: `https://kevinruffe.com/entry/${entry.slug}`,
           type: "article",
           article: {
