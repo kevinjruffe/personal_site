@@ -9,7 +9,11 @@ export default function About() {
 
   return (
     <>
-      <NextSeo title="Contact" description="Where to reach me." />
+      <NextSeo
+        title="Contact"
+        description="Where to reach me."
+        openGraph={{ url: "https://kevinruffe.com/contact" }}
+      />
       <PageLayout>
         <div className="text-center pt-32">
           <H1>You Can Find Me At...</H1>

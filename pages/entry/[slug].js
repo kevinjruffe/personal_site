@@ -8,7 +8,22 @@ import PageLayout from "../../components/PageLayout";
 export default function Entry({ entry }) {
   return (
     <>
-      <NextSeo description={getSeoDescription(entry.tagsCollection.items)} />
+      <NextSeo
+        description={getSeoDescription(entry.tagsCollection.items)}
+        openGraph={{
+          url: `https://kevinruffe.com/entry/${entry.slug}`,
+          type: "article",
+          article: {
+            publishedTime: `${entry.date}`,
+            authors: ["https://kevinruffe.com/about"],
+            tags: [
+              `${entry.tagsCollection.items
+                .map((tagObj) => tagObj.name)
+                .join(",")}`,
+            ],
+          },
+        }}
+      />
       <PageLayout>
         <Article entry={entry} />
       </PageLayout>

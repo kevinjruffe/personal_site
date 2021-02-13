@@ -10,7 +10,7 @@ export default {
         width: 91,
         height: 91,
         alt: "Me",
-      }
+      },
     ],
   },
   titleTemplate: "KevinRuffe.com | %s",

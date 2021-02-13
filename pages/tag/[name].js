@@ -11,7 +11,10 @@ export default function Tag({ entries }) {
 
   return (
     <>
-      <NextSeo description={`Blog posts tagged "${router.query.name}"`} />
+      <NextSeo
+        description={`Blog posts tagged "${router.query.name}"`}
+        openGraph={{ url: `https://kevinruffe.com/tag/${router.query.name}` }}
+      />
       <PageLayout>
         <EntryCollection
           heading={`Posts Tagged "${router.query.name}"`}

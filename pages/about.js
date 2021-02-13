@@ -12,6 +12,7 @@ export default function About() {
       <NextSeo
         title="About"
         description="Who am I and what this site covers."
+        openGraph={{ url: "https://kevinruffe.com/about" }}
       />
       <PageLayout>
         <div className="max-w-prose w-10/12 m-auto">
