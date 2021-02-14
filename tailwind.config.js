@@ -5,6 +5,9 @@ module.exports = {
   darkMode: false,
   theme: {
     colors: {
+      black: {
+        DEFAULT: "#000000",
+      },
       gray: {
         DEFAULT: "#ececec",
       },
@@ -13,11 +16,18 @@ module.exports = {
         DEFAULT: "#1e5344",
         dark: "#215144",
       },
+      red: {
+        DEFAULT: "#ff0000",
+      },
       white: {
         DEFAULT: "#ffffff",
       },
     },
-    extend: {},
+    extend: {
+      outline: {
+        green: "2px solid #7ca583",
+      },
+    },
     screens: {
       "2xl": { max: "1535px" },
       xl: { max: "1279px" },
@@ -27,7 +37,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderRadius: ['focus'],
+    },
   },
   plugins: [
     plugin(({ addBase, theme }) => {
