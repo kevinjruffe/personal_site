@@ -4,7 +4,6 @@ import mailClient from "../../lib/mailClient";
  * Handler for "Say Hello" form.
  */
 export default async function handler(req, res) {
-  console.log("Here...");
   // Honeypot caught something.
   if (req.body.phone) {
     return res.status(202).json({
@@ -25,13 +24,16 @@ export default async function handler(req, res) {
     subject: "Message from 'Say Hello' Form",
     text,
   })
-  //.then((result) => Boolean(result.accepted.length))
+  .then((res) => {
+    console.log(res);
+    return res;
+  })
   .catch(console.error);
-  cosole.log("Result:", result);
-  const sent = true;
+
+  const sent = Boolean(result.accepted.length);
 
   res.status(202).json({
     sent,
-    message: sent ? "Message Sent!" : "Server Error. Unable to Send. ☹️",
+    message: sent ? "Message Sent!" : "Server Error! Unable to Send.",
   });
 }
