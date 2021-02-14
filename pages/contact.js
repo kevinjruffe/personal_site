@@ -9,12 +9,12 @@ export default function About() {
   const [formSubmitFeedback, setFormSubmitFeedback] = useState({});
 
   const focusStyle = "focus:ring focus:outline-green focus:rounded-sm";
-  const buttonClass = "border border-black border-solid bg-green-light " +
+  const buttonClass =
+    "border border-black border-solid bg-green-light " +
     "rounded-sm text-white py-1 px-2 mt-4 block transition-colors " +
     "hover:text-green-dark";
-  const getFeedbackColor = () => formSubmitFeedback.sent
-    ? "text-green-light"
-    : "text-red";
+  const getFeedbackColor = () =>
+    formSubmitFeedback.sent ? "text-green-light" : "text-red";
   const imgClass = "w-32 transition-opacity hover:opacity-70 sm:w-24";
   const inputClass = "border rounded-sm p-1 " + focusStyle;
   const labelClass = "flex flex-col text-left font-semibold mt-4";
@@ -35,13 +35,13 @@ export default function About() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.error(`FAILED TO SEND MESSAGE! ${err}`);
-    });
+      .then((res) => res.json())
+      .catch((err) => {
+        console.error(`FAILED TO SEND MESSAGE! ${err}`);
+      });
 
     setFormSubmitFeedback({
-      message: response? response.message : "Unable to Send Message.",
+      message: response ? response.message : "Unable to Send Message.",
       sent: response?.sent,
     });
     setFormData({});
@@ -61,37 +61,50 @@ export default function About() {
             <div className={`font-semibold ${getFeedbackColor()}`}>
               {formSubmitFeedback.message}
             </div>
-            <label className={labelClass}>Your Name
-              <input type="text"
-                     name="name"
-                     value={formData.name ?? ""}
-                     onChange={handleFormChange}
-                     className={inputClass}
-                     required />
+            <label className={labelClass}>
+              Your Name
+              <input
+                type="text"
+                name="name"
+                value={formData.name ?? ""}
+                onChange={handleFormChange}
+                className={inputClass}
+                required
+              />
             </label>
-            <label className={labelClass}>Your Email
-              <input type="email"
-                     name="email"
-                     value={formData.email ?? ""}
-                     onChange={handleFormChange}
-                     className={inputClass}
-                     required />
+            <label className={labelClass}>
+              Your Email
+              <input
+                type="email"
+                name="email"
+                value={formData.email ?? ""}
+                onChange={handleFormChange}
+                className={inputClass}
+                required
+              />
             </label>
-            <label className={labelClass}>Message
-              <textarea rows="5"
-                        cols="35"
-                        name="message"
-                        value={formData.message ?? ""}
-                        onChange={handleFormChange}
-                        className={inputClass}
-                        required />
+            <label className={labelClass}>
+              Message
+              <textarea
+                rows="5"
+                cols="35"
+                name="message"
+                value={formData.message ?? ""}
+                onChange={handleFormChange}
+                className={inputClass}
+                required
+              />
             </label>
-            <input type="text"
-                   name="phone"
-                   className="hidden"
-                   value={formData.phone ?? ""}
-                   onChange={handleFormChange} />
-            <button type="submit" className={buttonClass}>Send Message</button>
+            <input
+              type="text"
+              name="phone"
+              className="hidden"
+              value={formData.phone ?? ""}
+              onChange={handleFormChange}
+            />
+            <button type="submit" className={buttonClass}>
+              Send Message
+            </button>
           </form>
           <h2 className="pt-8">Or find me here!</h2>
           <address>

@@ -18,17 +18,18 @@ export default async function handler(req, res) {
     Message: ${req.body.message}
   `;
 
-  const result = await mailClient.sendMail({
-    from: '"KevinRuffe.com" <noreply@kevinruffe.com>',
-    to: "kevinjruffe@gmail.com",
-    subject: "Message from 'Say Hello' Form",
-    text,
-  })
-  .then((res) => {
-    console.log(res);
-    return res;
-  })
-  .catch(console.error);
+  const result = await mailClient
+    .sendMail({
+      from: '"KevinRuffe.com" <noreply@kevinruffe.com>',
+      to: "kevinjruffe@gmail.com",
+      subject: "Message from 'Say Hello' Form",
+      text,
+    })
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch(console.error);
 
   const sent = Boolean(result.accepted.length);
 

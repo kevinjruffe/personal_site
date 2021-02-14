@@ -38,7 +38,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      borderRadius: ['focus'],
+      borderRadius: ["focus"],
     },
   },
   plugins: [
