@@ -1,10 +1,17 @@
+import type { Entry, Tag } from "../types/contentful";
+
 import dayjs from "dayjs";
 import H1 from "./H1";
 import Image from "next/image";
 import Link from "next/link";
 import parse from "html-react-parser";
 
-export default function Article({ borderTop, entry }) {
+type Props = {
+  borderTop?: boolean;
+  entry: Entry;
+};
+
+export default function Article({ borderTop, entry }: Props) {
   const topBorder = borderTop
     ? "border-t-4 border-double border-green-light "
     : "";
@@ -41,9 +48,9 @@ export default function Article({ borderTop, entry }) {
         )}
       </div>
       {parse(entry.body, { replace: replaceImgWithNextImage })}
-      {entry.tagsCollection?.items.length > 0 && (
+      {entry.tags.length > 0 && (
         <ul className="inline-block">
-          {entry.tagsCollection.items.map((tag) => (
+          {entry.tags.map((tag: Tag) => (
             <li key={tag.name} className="inline-block pr-4">
               <Link href={`/tag/${tag.name}`}>
                 <a className="text-green-light hover:underline">🏷 {tag.name}</a>

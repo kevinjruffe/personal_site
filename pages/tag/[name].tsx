@@ -1,12 +1,26 @@
+import type {
+  ContentfulEntry,
+  Entry,
+  Tag as TagType,
+} from "../../types/contentful";
+import { GetStaticProps, GetStaticPaths } from "next";
+
 import { getEntriesByTag, getTags } from "../../graphql/queries";
+import {
+  markdownToHtml,
+  repackageTagData,
+} from "../../lib/repackageContentfulData";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import EntryCollection from "../../components/EntryCollection";
 import graphQLClient from "../../graphql/client";
-import markdownToHtml from "../../lib/markdownToHtml";
 import PageLayout from "../../components/PageLayout";
 
-export default function Tag({ entries }) {
+type Props = {
+  entries: Array<Entry>,
+};
+
+export default function Tag({ entries }: Props) {
   const router = useRouter();
 
   return (
@@ -25,21 +39,25 @@ export default function Tag({ entries }) {
   );
 }
 
-export async function getStaticProps({ params: { name } }) {
-  const entriesOriginal = (
+export const getStaticProps: GetStaticProps = async ({ params: { name } }) => {
+  const entriesOriginal: Array<ContentfulEntry> = (
     await graphQLClient.request(getEntriesByTag, { tag: name })
   ).tagCollection.items[0].linkedFrom.contentTypeEntryCollection.items;
 
-  const entries = await Promise.all(entriesOriginal.map(markdownToHtml));
+  const entries: Array<Entry> = [
+    ...(await Promise.all(
+      entriesOriginal.map(repackageTagData).map(markdownToHtml)
+    )),
+  ];
 
   return { props: { entries } };
-}
+};
 
-export async function getStaticPaths() {
-  const tags = (await graphQLClient.request(getTags)).tagCollection.items;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const tags: Array<TagType> = (await graphQLClient.request(getTags)).tagCollection.items;
 
   return {
     paths: tags.map((tag) => ({ params: { name: tag.name } })),
     fallback: false,
   };
-}
+};
