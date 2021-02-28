@@ -4,6 +4,22 @@ import mailClient from "../../lib/mailClient";
  * Handler for "Say Hello" form.
  */
 export default async function handler(req, res) {
+  // Light server-side validation.
+  if (!req.body.name || !req.body.email || !req.body.message) {
+    return res.status(400).json({
+      sent: false,
+      message: "Missing required fields.",
+    });
+  }
+
+  // On the blacklist. Just tell them you sent it...
+  if (process.env.BLACKLIST.includes(req.body.email)) {
+    return res.status(202).json({
+      sent: true,
+      message: "Message Sent!",
+    });
+  }
+
   // Honeypot caught something.
   if (req.body.phone) {
     return res.status(202).json({
