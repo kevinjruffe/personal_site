@@ -17,7 +17,7 @@ import graphQLClient from "../../graphql/client";
 import PageLayout from "../../components/PageLayout";
 
 type Props = {
-  entries: Array<Entry>,
+  entries: Array<Entry>;
 };
 
 export default function Tag({ entries }: Props) {
@@ -54,7 +54,8 @@ export const getStaticProps: GetStaticProps = async ({ params: { name } }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const tags: Array<TagType> = (await graphQLClient.request(getTags)).tagCollection.items;
+  const tags: Array<TagType> = (await graphQLClient.request(getTags))
+    .tagCollection.items;
 
   return {
     paths: tags.map((tag) => ({ params: { name: tag.name } })),

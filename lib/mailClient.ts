@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+//const mailClient: nodemailer.Transporter = nodemailer.createTransport({
 const mailClient = nodemailer.createTransport({
   host: process.env.MAIL_CLIENT_HOST,
   port: 587,

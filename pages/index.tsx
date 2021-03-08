@@ -27,8 +27,9 @@ export default function Home({ entries }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const entriesOriginal: Array<ContentfulEntry> = (await graphQLClient.request(getEntries))
-    .contentTypeEntryCollection.items;
+  const entriesOriginal: Array<ContentfulEntry> = (
+    await graphQLClient.request(getEntries)
+  ).contentTypeEntryCollection.items;
 
   // Transform Markdown to HTML
   const entries: Array<Entry> = [

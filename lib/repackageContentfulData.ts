@@ -14,12 +14,14 @@ const currentEntryImgDimensions: Array<ImgDimensions> = [];
 // Customize how `marked` deals with img tags. We want to add width and height
 // as attributes that can be grabbed later in the rendering process.
 const renderer = {
-  image(href, title, text) {
-    const dimensions: ImgDimensions = currentEntryImgDimensions.pop();
+  image(href: string, title: string, text: string): string {
+    const dimensions:
+      | ImgDimensions
+      | undefined = currentEntryImgDimensions.pop();
     return `<img src="https:${href}"
             alt=${text}
-            width=${dimensions.width}
-            height=${dimensions.height} />`;
+            width=${dimensions?.width}
+            height=${dimensions?.height} />`;
   },
 };
 marked.use({ renderer });
