@@ -1,7 +1,14 @@
+import type { Entry } from "../types/contentful";
+
 import Article from "../components/Article";
 import usePagination from "../hooks/usePagination";
 
-export default function EntryCollection({ heading, entries }) {
+type Props = {
+  heading: string;
+  entries: Array<Entry>;
+};
+
+export default function EntryCollection({ heading, entries }: Props) {
   const {
     changePage,
     entriesPerPage,

@@ -14,7 +14,7 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "html-react-parser": "^1.2.4",
-    "marked": "^2.0.0",
+    "marked": "^2.0.1",
     "next": "10.0.4",
     "next-seo": "^4.19.0",
     "nodemailer": "^6.4.18",
@@ -22,6 +22,13 @@
     "prettier": "^2.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "sharp": "^0.27.2",
     "tailwindcss": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/nodemailer": "^6.4.0",
+    "@types/react": "^17.0.2",
+    "typescript": "^4.1.5"
   }
 }

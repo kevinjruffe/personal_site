@@ -1,15 +1,29 @@
+import type {
+  ContentfulEntry,
+  Entry as EntryType,
+  Tag,
+} from "../../types/contentful";
+import { GetStaticProps, GetStaticPaths } from "next";
+
 import { getEntryBySlug, getSlugs } from "../../graphql/queries";
+import {
+  markdownToHtml,
+  repackageTagData,
+} from "../../lib/repackageContentfulData";
 import { NextSeo } from "next-seo";
 import Article from "../../components/Article";
 import graphQLClient from "../../graphql/client";
-import markdownToHtml from "../../lib/markdownToHtml";
 import PageLayout from "../../components/PageLayout";
 
-export default function Entry({ entry }) {
+type Props = {
+  entry: EntryType;
+};
+
+export default function Entry({ entry }: Props) {
   return (
     <>
       <NextSeo
-        description={getSeoDescription(entry.tagsCollection.items)}
+        description={getSeoDescription(entry.tags)}
         openGraph={{
           title: `${entry.title}`,
           url: `https://kevinruffe.com/entry/${entry.slug}`,
@@ -18,8 +32,8 @@ export default function Entry({ entry }) {
             publishedTime: `${entry.date}`,
             authors: ["https://kevinruffe.com/about"],
             tags: [
-              `${entry.tagsCollection.items
-                .map((tagObj) => tagObj.name)
+              `${entry.tags
+                .map((tagObj: Tag): string => tagObj.name)
                 .join(",")}`,
             ],
           },
@@ -32,27 +46,32 @@ export default function Entry({ entry }) {
   );
 }
 
-export async function getStaticProps({ params: { slug } }) {
-  const entryOriginal = (await graphQLClient.request(getEntryBySlug, { slug }))
-    .contentTypeEntryCollection.items[0];
+export const getStaticProps: GetStaticProps<Props> = async ({
+  params: { slug },
+}) => {
+  const entryOriginal: ContentfulEntry = (
+    await graphQLClient.request(getEntryBySlug, { slug })
+  ).contentTypeEntryCollection.items[0];
 
   // Transform Markdown to HTML
-  const entry = await markdownToHtml(entryOriginal);
+  const entry: EntryType = await markdownToHtml(
+    repackageTagData(entryOriginal)
+  );
 
   return { props: { entry } };
-}
+};
 
-export async function getStaticPaths() {
-  const slugs = (await graphQLClient.request(getSlugs))
+export const getStaticPaths: GetStaticPaths = async () => {
+  const slugs: Array<EntryType> = (await graphQLClient.request(getSlugs))
     .contentTypeEntryCollection.items;
 
   return {
     paths: slugs.map((entry) => ({ params: { slug: entry.slug } })),
     fallback: false,
   };
-}
+};
 
-function getSeoDescription(tags) {
+function getSeoDescription(tags: Array<Tag>): string {
   return tags.length
     ? `A blog post covering: ${tags.map((tagObj) => tagObj.name).join(", ")}`
     : "A blog post by Kevin Ruffe.";
