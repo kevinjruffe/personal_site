@@ -18,8 +18,9 @@ const renderer = {
     const dimensions:
       | ImgDimensions
       | undefined = currentEntryImgDimensions.pop();
+    console.log("Text:", text)
     return `<img src="https:${href}"
-            alt=${text}
+            alt="${text}"
             width=${dimensions?.width}
             height=${dimensions?.height} />`;
   },
