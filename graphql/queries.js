@@ -5,6 +5,7 @@ export const getAssetsDimensionsByUrls = gql`
   query getAssetsDimensionsByUrls($urls: [String!]!) {
     assetCollection(where: { url_in: $urls }) {
       items {
+        fileName
         height
         width
       }

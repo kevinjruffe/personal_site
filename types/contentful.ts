@@ -17,6 +17,7 @@ export type Entry = {
 };
 
 export type ImgDimensions = {
+  fileName: string;
   height: number;
   width: number;
 };

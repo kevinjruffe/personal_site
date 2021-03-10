@@ -15,9 +15,9 @@ const currentEntryImgDimensions: Array<ImgDimensions> = [];
 // as attributes that can be grabbed later in the rendering process.
 const renderer = {
   image(href: string, title: string, text: string): string {
-    const dimensions:
-      | ImgDimensions
-      | undefined = currentEntryImgDimensions.pop();
+    const dimensions: ImgDimensions = currentEntryImgDimensions.find(
+      (img) => href.endsWith(img.fileName)
+    );
     return `<img src="https:${href}"
             alt="${text}"
             width=${dimensions?.width}

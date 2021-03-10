@@ -21,12 +21,12 @@ const options: HTMLReactParserOptions = {
    *       tags around the `img` tag. A `div` tag cannot be a child of a `p`
    *       tag...
    */
-  replace: (domNode: DOMNode) => {
-    if (domNode instanceof Element && domNode.name === "p") {
-      const childImage = domNode.children.find(
-        (child) => child instanceof Element && child.name === "img"
+  replace: (domNode: Element) => {
+    if (domNode.name === "p") {
+      const childImage: any = domNode.children.find(
+        (child: Element) => child.name === "img"
       );
-      if (childImage instanceof Element) {
+      if (childImage) {
         return (
           <div>
             <Image
