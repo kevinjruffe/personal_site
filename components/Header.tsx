@@ -15,6 +15,7 @@ export default function Header() {
               alt="Logo (tent)"
               width={175}
               height={103}
+              loading="eager"
             />
           </a>
         </Link>
