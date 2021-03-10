@@ -22,6 +22,7 @@ export default function About() {
               alt="Me"
               width={182}
               height={182}
+              loading="eager"
               className="border-solid border-2 border-green-light rounded-full"
             />
           </div>
