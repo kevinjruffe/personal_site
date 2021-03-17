@@ -34,6 +34,7 @@ const options: HTMLReactParserOptions = {
               alt={childImage.attribs.alt}
               width={childImage.attribs.width}
               height={childImage.attribs.height}
+              layout="responsive"
             />
           </div>
         );
