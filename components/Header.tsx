@@ -5,12 +5,11 @@ export default function Header() {
   const anchorClass = "transition-colors hover:text-green-dark";
 
   return (
-    <header className="border-b-solid border-b-2 border-green-light bg-white flex">
-      <div className="md:w-32">
+    <header className="border-b-solid border-b-2 border-green-light bg-white grid grid-cols-4">
+      <div className="col-span-1 sm:w-24">
         <Link href="/">
           <a className="inline-block">
             <Image
-              className="w-1/2 md:w-auto sm:w-24"
               src="/logo-header.png"
               alt="Logo (tent)"
               width={175}
@@ -20,8 +19,8 @@ export default function Header() {
           </a>
         </Link>
       </div>
-      <nav className="flex-grow">
-        <ul className="flex h-full justify-around items-center text-xl uppercase text-green-light font-extrabold tracking-widest pt-4 md:text-base sm:text-xs">
+      <nav className="col-span-2 col-start-3 md:col-span-3 md:col-start-2">
+        <ul className="flex h-full justify-around items-center text-xl uppercase text-green-light font-extrabold tracking-widest pt-4 sm:text-sm">
           <li>
             <Link href="/">
               <a className={anchorClass}>Blog</a>
