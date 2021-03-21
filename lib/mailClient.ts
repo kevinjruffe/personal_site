@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-//const mailClient: nodemailer.Transporter = nodemailer.createTransport({
-const mailClient = nodemailer.createTransport({
+const configOptions: SMTPTransport.Options = {
   host: process.env.MAIL_CLIENT_HOST,
   port: 587,
   secure: false,
@@ -9,6 +9,10 @@ const mailClient = nodemailer.createTransport({
     user: process.env.MAIL_CLIENT_USER,
     pass: process.env.MAIL_CLIENT_PASS,
   },
-});
+};
+
+const mailClient: nodemailer.Transporter = nodemailer.createTransport(
+  configOptions
+);
 
 export default mailClient;
