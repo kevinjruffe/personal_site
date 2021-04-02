@@ -18,7 +18,7 @@ export default async function handler(
   }
 
   // On the blacklist. Just tell them you sent it...
-  if (process.env.BLACKLIST.includes(req.body.email)) {
+  if (process.env.BLACKLIST?.includes(req.body.email)) {
     return res.status(202).json(makeResponse(true, "Message Sent!"));
   }
 
