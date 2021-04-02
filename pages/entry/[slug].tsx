@@ -6,6 +6,7 @@ import type {
 import { GetStaticProps, GetStaticPaths } from "next";
 
 import { getEntryBySlug, getSlugs } from "../../graphql/queries";
+import { ParsedUrlQuery } from "querystring";
 import {
   markdownToHtml,
   repackageTagData,
@@ -15,11 +16,11 @@ import Article from "../../components/Article";
 import graphQLClient from "../../graphql/client";
 import PageLayout from "../../components/PageLayout";
 
-type Props = {
+type EntryProps = {
   entry: EntryType;
 };
 
-export default function Entry({ entry }: Props) {
+export default function Entry({ entry }: EntryProps) {
   return (
     <>
       <NextSeo
@@ -46,11 +47,9 @@ export default function Entry({ entry }: Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({
-  params: { slug },
-}) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const entryOriginal: ContentfulEntry = (
-    await graphQLClient.request(getEntryBySlug, { slug })
+    await graphQLClient.request(getEntryBySlug, { slug: params!.slug })
   ).contentTypeEntryCollection.items[0];
 
   // Transform Markdown to HTML

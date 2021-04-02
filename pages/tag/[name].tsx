@@ -39,9 +39,9 @@ export default function Tag({ entries }: Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ params: { name } }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const entriesOriginal: Array<ContentfulEntry> = (
-    await graphQLClient.request(getEntriesByTag, { tag: name })
+    await graphQLClient.request(getEntriesByTag, { tag: params!.name })
   ).tagCollection.items[0].linkedFrom.contentTypeEntryCollection.items;
 
   const entries: Array<Entry> = [

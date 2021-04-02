@@ -6,16 +6,18 @@ import type {
 
 import { getAssetsDimensionsByUrls } from "../graphql/queries";
 import graphQLClient from "../graphql/client";
-import marked from "marked";
+import marked, { MarkedOptions, Renderer } from "marked";
 
 // Global State
 const currentEntryImgDimensions: Array<ImgDimensions> = [];
 
 // Customize how `marked` deals with img tags. We want to add width and height
 // as attributes that can be grabbed later in the rendering process.
-const renderer = {
+const renderer: any = {
   image(href: string, title: string, text: string): string {
-    const dimensions: ImgDimensions = currentEntryImgDimensions.find((img) =>
+    const dimensions:
+      | ImgDimensions
+      | undefined = currentEntryImgDimensions.find((img) =>
       href.endsWith(img.fileName.replace(/\s/g, "_"))
     );
     return `<img src="https:${href}"
@@ -57,9 +59,15 @@ export function repackageTagData(contentfulEntry: ContentfulEntry): Entry {
  */
 
 function getImgUrlsFromMarkdown(markdown: string): Array<string> {
-  return [...markdown.matchAll(/!\[.+/g)]
-    .map((matchResultArray) => matchResultArray[0])
-    .map((markdownTag) => markdownTag.match(/[^!\[\w\s\]\(].+[^\)]/)[0]);
+  const imgTags = [...markdown.matchAll(/!\[.+/g)].map(
+    (matchResultArray) => matchResultArray[0]
+  );
+  return imgTags
+    ? imgTags.map((markdownTag) => {
+        const result = markdownTag.match(/[^!\[\w\s\]\(].+[^\)]/);
+        return result ? result[0] : "";
+      })
+    : [""];
 }
 
 async function getImgDimensionsByUrls(
