@@ -72,7 +72,7 @@ export default function Article({ borderTop, entry }: Props) {
             {" | "}
             <a
               target="_blank"
-              rel="noopener"
+              rel="noreferrer"
               href={mapsUrl}
               className="text-green-light hover:underline"
             >
