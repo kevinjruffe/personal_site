@@ -28,14 +28,14 @@ export default function About() {
           </div>
           <H1>About Me</H1>
           <p className={paragraphStyle}>
-            I'm a web developer, proudly based in rural Vermont. My passions are
-            programming, roaming the forests and mountains of my adopted state,
-            and my lovely wife, Katie.
+            I&apos;m a web developer, proudly based in rural Vermont. My
+            passions are programming, roaming the forests and mountains of my
+            adopted state, and my lovely wife, Katie.
           </p>
           <p className={paragraphStyle}>
-            Here you'll find posts about my projects, adventures or whatever
-            random thing happens to be at the forefront of my mind. Please feel
-            free to{" "}
+            Here you&apos;ll find posts about my projects, adventures or
+            whatever random thing happens to be at the forefront of my mind.
+            Please feel free to{" "}
             <Link href="/contact">
               <a>drop me a line</a>
             </Link>
