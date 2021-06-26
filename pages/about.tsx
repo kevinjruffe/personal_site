@@ -2,6 +2,7 @@ import { NextSeo } from "next-seo";
 import H1 from "../components/H1";
 import Image from "next/image";
 import Link from "next/link";
+import me from "../public/me.png";
 import PageLayout from "../components/PageLayout";
 
 export default function About() {
@@ -18,10 +19,9 @@ export default function About() {
         <div className="max-w-prose w-10/12 m-auto">
           <div className="w-1/3 mx-auto mt-8">
             <Image
-              src="/me.png"
+              src={me}
               alt="Me"
-              width={182}
-              height={182}
+              priority
               loading="eager"
               className="border-solid border-2 border-green-light rounded-full"
             />

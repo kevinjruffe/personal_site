@@ -12,9 +12,10 @@ export default function Header() {
             <Image
               src="/logo-header.png"
               alt="Logo (tent)"
+              priority
+              loading="eager"
               width={175}
               height={103}
-              loading="eager"
             />
           </a>
         </Link>

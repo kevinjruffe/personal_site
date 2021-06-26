@@ -22,9 +22,8 @@ const emptyForm: ContactFormData = {
 
 export default function About() {
   const [formData, setFormData] = useState<ContactFormData>(emptyForm);
-  const [formSubmitFeedback, setFormSubmitFeedback] = useState<JSONResponse>(
-    emptyFeedback
-  );
+  const [formSubmitFeedback, setFormSubmitFeedback] =
+    useState<JSONResponse>(emptyFeedback);
 
   const focusStyle = "focus:ring focus:outline-green focus:rounded-sm";
   const buttonClass =
@@ -134,6 +133,7 @@ export default function About() {
                   <Image
                     src="/instagram.png"
                     alt="Instagram"
+                    priority
                     width={128}
                     height={128}
                     className={imgClass}
@@ -145,6 +145,7 @@ export default function About() {
                   <Image
                     src="/github.png"
                     alt="GitHub"
+                    priority
                     width={128}
                     height={125}
                     className={imgClass}
